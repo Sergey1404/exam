@@ -1,0 +1,76 @@
+using System;
+using System.Collections.Generic;
+namespace ConsoleApplication27 {
+    class Program {
+        static void Main() {
+            Random r = new Random();
+            var tmp = new int[10];
+            for (var i = 0; i < 10; i++) {
+                var t = r.Next(100);
+                tmp[i] = t;
+                Console.WriteLine(t);
+            }
+            MyArray myArray = new MyArray(tmp);
+            myArray.TreeSort();
+            for (int i = 0; i < myArray.Data.Length; i++) {
+                Console.WriteLine(myArray.Data[i]);
+            }
+            Console.ReadKey();
+        }
+    }
+    class MyArray {
+        public int[] Data { get; set; }
+        public MyArray(int[] data) {
+            Data = data;
+        }
+        public void TreeSort() {
+            Tree root = new Tree();
+            for (int i = 0; i < Data.Length; i++) {
+                root.AddToTree(Data[i]);
+            }
+            Data = root.GetSorted();
+        }
+        class Tree {
+            class TreeItem {
+                public readonly int Value;
+                public TreeItem Left;
+                public TreeItem Right;
+                public TreeItem(int value, TreeItem left = null, TreeItem right = null) {
+                    Value = value;
+                    Left = left;
+                    Right = right;
+                }
+            }
+            private TreeItem root;
+            private readonly List<int> result = new List<int>();
+            public Tree() {
+                root = null;
+            }
+            private static void AddToTreeRec(int value, ref TreeItem localRoot) {
+                if (localRoot == null) {
+                    localRoot = new TreeItem(value);
+                    return;
+                }
+                if (localRoot.Value > value) {
+                    AddToTreeRec(value, ref localRoot.Right);
+                } else {
+                    AddToTreeRec(value, ref localRoot.Left);
+                }
+            }
+            public void AddToTree(int value) {
+                AddToTreeRec(value, ref root);
+            }
+            private void GetSortedNumRec(TreeItem node) {
+                if (node != null) {
+                    GetSortedNumRec(node.Right);
+                    result.Add(node.Value);
+                    GetSortedNumRec(node.Left);
+                }
+            }
+            public int[] GetSorted() {
+                GetSortedNumRec(root);
+                return result.ToArray();
+            }
+        }
+    }
+}
