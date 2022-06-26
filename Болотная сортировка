@@ -1,0 +1,43 @@
+using System; 
+class GFG {
+    static void Swap<T>(ref T lhs, ref T rhs) {
+        T temp;
+        temp = lhs;
+        lhs = rhs;
+        rhs = temp;
+    }
+    public static bool isSorted(int[] a, int n) { 
+        int i = 0;
+        while (i < n - 1) {
+            if (a[i] > a[i + 1]) {
+                return false;
+            }
+            i++;
+        }
+        return true;
+    }
+    public static void shuffle(int[] a, int n) { 
+        Random rnd = new Random();
+        for (int i=0; i < n; i++) {
+            Swap(ref a[i], ref a[rnd.Next(0,n)]);
+        }
+    }
+    public static void bogosort(int[] a, int n) {
+        while ( !isSorted(a, n) ) {
+            shuffle(a, n); 
+        }
+    }
+    public static void printArray(int[] a, int n) { 
+        for (int i=0; i<n; i++) {
+            Console.Write(a[i] + " ");
+        }
+        Console.Write(" "); 
+    }
+    static void Main() { 
+        int[] a = {3, 2, 5, 1, 0, 4}; 
+        int n = a.Length; 
+        bogosort(a, n); 
+        Console.Write("Sorted array: "); 
+        printArray(a,n); 
+    }
+}
