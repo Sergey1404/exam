@@ -1,0 +1,30 @@
+using System;
+namespace Mena_mestami {
+    class Program {
+        static void Main(string[] args) {
+            Console.WriteLine("Введите размерность массива");
+            int n;
+            n = Convert.ToInt32(Console.ReadLine());
+            int[,] mas = new int[n, n];
+            int sum = 0;
+            int summa = 0;
+            Random rnd = new Random();
+            for (int i = 0; i < mas.GetLength(0); i++) {
+                for (int j = 0; j < mas.GetLength(1); j++) {
+                    mas[i, j] = rnd.Next(-5, 5);
+                    Console.Write((mas[i, j] >= 0 ? " " : "") + mas[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+            for (int j = 0; j < mas.GetLength(0); j++) {
+                sum = 0;
+                for (int i = 0; i < mas.GetLength(1); i++) {
+                    if (mas[i, j] < 0) {
+                        sum += mas[i, j];
+                    }
+                }
+                Console.WriteLine("Сумма {0}", sum);
+            }
+        }
+    }
+}
