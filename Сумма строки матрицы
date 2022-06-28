@@ -1,5 +1,5 @@
 int[,] a;
-int n=10;
+int n=3;
 a = new int[n,n];
 int[] s=new int[n];
 //сумма по строке
@@ -9,10 +9,3 @@ for (int i=0;i<n;i++) {
     }
     Console.Writeln(s[i]," ");
 }  
-//сумма по столбцу
-for (int i=0;i<n;i++) {
-    for(int j=0;j<n;j++) {
-        s[i]+=a[j,i];
-    }
-    Console.Writeln(s[i]," ");
-}
